@@ -4,6 +4,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import utils.SetupDriver;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import static org.junit.Assert.assertEquals;
 import static utils.SetupDriver.getDriver;
 
@@ -84,7 +87,10 @@ public class DesafioPage {
 
     //Anexando arquivo
     public void anexarArquivo(){
-        driver.findElement(By.id("uploadPicture")).sendKeys("C:\\Users\\SanclerParucciDaCost\\IdeaProjects\\Qa-Automation\\src\\test\\resources\\file\\automacao.txt");
+        Path caminho = Paths.get("src", "test", "resources", "file", "automacao.txt");
+        String localArquivo = caminho.toAbsolutePath().toString();
+        driver.findElement(By.id("uploadPicture")).sendKeys(localArquivo);
+
     }
 
     public void btnSubmit(){

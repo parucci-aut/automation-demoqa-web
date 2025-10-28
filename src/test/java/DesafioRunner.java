@@ -11,7 +11,6 @@ import static utils.SetupDriver.quitDriver;
     @CucumberOptions(
 
            features = "src/test/resources/features/",
-            glue = {"steps"},
             plugin = {"pretty"},
 //            tags = "@tag",
             monochrome = false
