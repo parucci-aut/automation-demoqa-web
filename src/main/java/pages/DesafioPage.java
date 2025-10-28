@@ -133,9 +133,9 @@ public class DesafioPage {
     public void fecharNovaJanela(){
         driver.close();
         driver.switchTo().window(SetupDriver.getNavegadorPrincipal());
-        driver.findElement(By.xpath("//*[text()='Alerts, Frame & Windows']")).click();
         String menuAlertsFrameWindows = driver.findElement(By.xpath("//*[text()='Alerts, Frame & Windows']")).getText();
         assertEquals(menuAlertsFrameWindows, "Alerts, Frame & Windows");
+        driver.findElement(By.xpath("//*[text()='Alerts, Frame & Windows']")).click();
         System.out.println(menuAlertsFrameWindows);
     }
 

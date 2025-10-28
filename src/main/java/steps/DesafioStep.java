@@ -1,6 +1,7 @@
 package steps;
 
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,6 +17,7 @@ public class DesafioStep {
 
 
     DesafioPage desafioPage = new DesafioPage();
+
 
     @After
     public void fechar() {
@@ -109,8 +111,9 @@ public class DesafioStep {
     }
 
     @Then("Fechar a nova janela aberta")
-    public void fechar_a_nova_janela_aberta() throws IOException {
+    public void fechar_a_nova_janela_aberta() throws IOException, InterruptedException {
         desafioPage.fecharNovaJanela();
+        Thread.sleep(2000);
         Screenshot.takeScreenshot("CT002_Retornando_Tela_TOOLS_QA");
 
     }

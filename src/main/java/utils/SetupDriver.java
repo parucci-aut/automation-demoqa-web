@@ -21,7 +21,12 @@ public class SetupDriver {
      }
 
      public static void quitDriver(){
-            driver.quit();
+            if (driver != null){
+                driver.quit();
+                driver = null;
+
+            }
+
 
      }
 
