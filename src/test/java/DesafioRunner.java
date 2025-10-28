@@ -10,10 +10,10 @@ import static utils.SetupDriver.quitDriver;
 @RunWith(Cucumber.class)
     @CucumberOptions(
 
-           features = "src/test/resources//features",
+           features = "src/test/resources/features/",
             glue = {"steps"},
             plugin = {"pretty"},
-//          tags = "@exemplo1, @exemplo2",
+//            tags = "@tag",
             monochrome = false
             //tags = {""}
 

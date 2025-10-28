@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class SetupDriver {
 
     private static WebDriver driver;
+    private static String navegadorPrincipal;
 
     public static WebDriver getDriver(){
             if (driver == null){
@@ -23,6 +24,14 @@ public class SetupDriver {
             driver.quit();
 
      }
+
+    public static void setNavegadorPrincipal(String handle) {
+        navegadorPrincipal = handle;
+    }
+
+    public static String getNavegadorPrincipal() {
+        return navegadorPrincipal;
+    }
 
 
 }

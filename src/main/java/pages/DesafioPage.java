@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
+import utils.SetupDriver;
 
 import static org.junit.Assert.assertEquals;
 import static utils.SetupDriver.getDriver;
@@ -10,6 +11,7 @@ public class DesafioPage {
 
     private WebDriver driver;
 
+
     public DesafioPage() {
 
         this.driver = getDriver();
@@ -17,8 +19,8 @@ public class DesafioPage {
 
 
 
-    //CT001 - CT001-Forms da paginal inicial
-    // Metodos de cada steps
+    //#############################CT001 - CT001-Forms da paginal inicial#############################//
+    // Metodos //
     public void acessarSite(String site){
         driver.get(site);
     }
@@ -28,6 +30,7 @@ public class DesafioPage {
     }
 
     public void acessarTelaPracticeForm() {
+
         driver.findElement(By.xpath("//*[text()='Practice Form']")).click();
     }
 
@@ -85,7 +88,6 @@ public class DesafioPage {
     }
 
     public void btnSubmit(){
-
         driver.findElement(By.id("submit")).click();
     }
 
@@ -95,9 +97,46 @@ public class DesafioPage {
     }
 
     public void fecharPopUp(){
-
         driver.findElement(By.id("closeLargeModal")).click();
     }
 
+    //#############################CT002-Alerts, Frame e Windows na página inicial#############################//
+    // Metodos //
+
+    public void opcaoAlertsFrameWindows(){
+        driver.findElement(By.xpath("//*[@id=\"app\"]/div/div/div[2]/div/div[3]/div/div[3]/h5")).click();
+    }
+
+    public void opcaoSubMenuBrowserWindows(){
+        driver.findElement(By.xpath("//*[text()='Browser Windows']")).click();
+    }
+
+    public void btnNewWindows(){
+        driver.findElement(By.id("windowButton")).click();
+    }
+
+
+    public void validarMsgNovaJanela(){
+        SetupDriver.setNavegadorPrincipal(driver.getWindowHandle());
+        for (String novaJanela : driver.getWindowHandles()){
+            if (!novaJanela.equals(driver.getWindowHandle())){
+                driver.switchTo().window(novaJanela);
+            }
+        }
+
+        String mensagem = driver.findElement(By.id("sampleHeading")).getText();
+        assertEquals(mensagem, "This is a sample page");
+        System.out.println(mensagem);
+
+    }
+
+    public void fecharNovaJanela(){
+        driver.close();
+        driver.switchTo().window(SetupDriver.getNavegadorPrincipal());
+        driver.findElement(By.xpath("//*[text()='Alerts, Frame & Windows']")).click();
+        String menuAlertsFrameWindows = driver.findElement(By.xpath("//*[text()='Alerts, Frame & Windows']")).getText();
+        assertEquals(menuAlertsFrameWindows, "Alerts, Frame & Windows");
+        System.out.println(menuAlertsFrameWindows);
+    }
 
 }
