@@ -21,7 +21,8 @@ public class DesafioStep {
 
     @After
     public void fechar() {
-        quitDriver();
+//        quitDriver();
+
     }
 
 
@@ -117,6 +118,62 @@ public class DesafioStep {
         Screenshot.takeScreenshot("CT002_Retornando_Tela_TOOLS_QA");
 
     }
+
+    //#############################CT003-Elements na página inicial#############################//
+
+    @Given("Escolher a opção Elements na página inicial")
+    public void escolher_a_opção_elements_na_página_inicial() {
+        desafioPage.opcaoElements();
+
+    }
+
+    @When("Clicar no submenu Web Tables")
+    public void clicar_no_submenu_web_tables() throws IOException, InterruptedException {
+        desafioPage.opcaoWebTable();
+        Thread.sleep(1500);
+        Screenshot.takeScreenshot("CT003-antes_criar_registro");
+
+    }
+
+    @When("Criar um novo registro")
+    public void criar_um_novo_registro() throws IOException, InterruptedException {
+        desafioPage.criarRegistro();
+        Thread.sleep(1500);
+        Screenshot.takeScreenshot("CT003-Novo_registro_incluido");
+
+    }
+
+    @When("Editar o novo registro criado")
+    public void editar_o_novo_registro_criado() throws InterruptedException, IOException {
+        desafioPage.editarRegistro();
+        Thread.sleep(1500);
+        Screenshot.takeScreenshot("CT003-Registro_alterado");
+
+    }
+
+    @When("Deletar o novo registro criado.")
+    public void deletar_o_novo_registro_criado() throws IOException, InterruptedException {
+        desafioPage.deleteRegistro();
+        Thread.sleep(1500);
+        Screenshot.takeScreenshot("CT003-Registro_deletado");
+
+    }
+
+    @Then("Criar {int} novos registros de forma dinâmica através do cucumber")
+    public void criar_novos_registros_de_forma_dinâmica_através_do_cucumber(Integer qtd) throws InterruptedException, IOException {
+        desafioPage.criarRegistroAleatorios(qtd);
+        Thread.sleep(1500);
+        desafioPage.scroolSelectRows();
+        Screenshot.takeScreenshot("CT003-12_novos_registros");
+
+    }
+
+    @Then("Deletar todos os novos registros criados")
+    public void deletar_todos_os_novos_registros_criados() throws InterruptedException, IOException {
+        desafioPage.deletarRegistrosCriados();
+        Screenshot.takeScreenshot("Ct0013-Todos_registros_foram_deletados");
+    }
+
 
 
 }

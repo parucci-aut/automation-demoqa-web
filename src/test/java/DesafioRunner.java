@@ -12,10 +12,8 @@ import static utils.SetupDriver.quitDriver;
 
            features = "src/test/resources/features/",
             plugin = {"pretty"},
-//            tags = "@tag",
+            tags = "@tag",
             monochrome = false
-            //tags = {""}
-
     )
 
 public class DesafioRunner {
