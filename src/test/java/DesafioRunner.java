@@ -1,10 +1,8 @@
-import io.cucumber.java.After;
+
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
-import org.junit.Before;
 import org.junit.runner.RunWith;
 
-import static utils.SetupDriver.quitDriver;
 
 
 @RunWith(Cucumber.class)

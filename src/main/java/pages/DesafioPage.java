@@ -1,26 +1,34 @@
 package pages;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.SetupDriver;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static utils.SetupDriver.getDriver;
 
 public class DesafioPage {
 
     private WebDriver driver;
+    WebDriverWait wait;
+    WebElement progressBar;
+    Integer valor;
 
 
     public DesafioPage() {
 
         this.driver = getDriver();
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     // ============================== Registros aleatorios ==============================
@@ -272,7 +280,7 @@ public class DesafioPage {
         List<WebElement> registros = driver.findElements(By.xpath("//div[contains(@class,'rt-tr-group')]"));
         boolean encontrou = false;
 
-        // Enquanto ainda existir linha com e-mail de automação
+        // Enquanto ainda existir linha com e-mail de @automação.com
         while (!registros.isEmpty()) {
             boolean deletouNaIteracao = false;
 
@@ -315,6 +323,87 @@ public class DesafioPage {
         }
     }
 
+    //#############################CT004-Widgets na página inicial#############################//
+
+    public void opcaoWidgets() throws InterruptedException {
+        Thread.sleep(1500);
+        driver.findElement(By.xpath("//*[text()='Widgets']")).click();
+
+    }
+
+    public void opcaoProgressBar() throws InterruptedException {
+        //Scrool até o final da pagina
+        JavascriptExecutor scrollFinalPagina = (JavascriptExecutor) driver;
+        scrollFinalPagina.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+        driver.findElement(By.xpath("//*[text()='Progress Bar']")).click();
+    }
+
+    public void btnStar() {
+        driver.findElement(By.id("startStopButton")).click();
+
+    }
+
+    public void pararAntes25(int porc) throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+        boolean pausou = false;
+
+        while (System.currentTimeMillis() - startTime < 10000) { // tenta por até 10 segundos
+            WebElement progressBar = driver.findElement(By.cssSelector("div[role='progressbar']"));
+            int valor = Integer.parseInt(progressBar.getAttribute("aria-valuenow"));
+            System.out.println("Progresso atual: " + valor + "%");
+
+            // Se o valor for entre 20 e 25, pausa
+            if (valor >= 22 && valor < 25) {
+                driver.findElement(By.id("startStopButton")).click(); // pausa o progresso
+                System.out.println("Pausando em " + valor + "%");
+                Thread.sleep(4000);
+                pausou = true;
+                break;
+            }
+
+            // Se já chegou em 100%, não adianta continuar
+            if (valor >= 100) {
+                System.out.println("Progresso chegou a 100% antes de pausar");
+                break;
+            }
+
+            Thread.sleep(100);
+        }
+
+        if (!pausou) {
+            System.out.println("Não foi possível pausar entre 20% e 25%");
+        }
+
+    }
+
+    public void validarValorMenorOuIgualA25(int porc) {
+        WebElement progressBar = driver.findElement(By.cssSelector("div[role='progressbar']"));
+        int valor = Integer.parseInt(progressBar.getAttribute("aria-valuenow"));
+        System.out.println("Progresso atual: " + valor + "%");
+        assertTrue("Progresso deve ser menor ou igual a 25%", valor <= porc);
+    }
+
+    public void apertarStartEEsperarReset(int porc) throws InterruptedException {
+        driver.findElement(By.id("startStopButton")).click();// inicia novamente
+        while (true) {
+            WebElement progressBar = driver.findElement(By.cssSelector("div[role='progressbar']"));
+            int valorAtual = Integer.parseInt(progressBar.getAttribute("aria-valuenow"));
+            System.out.println("Progresso atual: " + valorAtual + "%");
+
+            if (valorAtual >= porc) {
+                System.out.println("Progresso chegou a 100%. Resetando progress bar...");
+                driver.findElement(By.id("resetButton")).click();
+                WebElement btn = driver.findElement(By.id("startStopButton"));
+                Thread.sleep(2000);
+                System.out.println("Botão " + btn.getText() + " Diponivel!");
+                break;
+            }
+
+            Thread.sleep(300);
+        }
+
+
+    }
 
 }
 

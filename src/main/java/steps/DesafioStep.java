@@ -1,7 +1,7 @@
 package steps;
 
 import io.cucumber.java.After;
-import io.cucumber.java.Before;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -26,7 +26,7 @@ public class DesafioStep {
     }
 
 
- //#############################CT001 - CT001-Forms da paginal inicial#############################//
+    //#############################CT001 - CT001-Forms da paginal inicial#############################//
 
     @Given("Acessar o site {string}")
     public void acessar_o_site(String site) {
@@ -85,7 +85,7 @@ public class DesafioStep {
 
     }
 
- //#############################CT002-Alerts, Frame e Windows na página inicial#############################//
+    //#############################CT002-Alerts, Frame e Windows na página inicial#############################//
 
     @Given("Escolher a opção Alerts, Frame & Windows na página inicial")
     public void escolher_a_opção_alerts_frame_windows_na_página_inicial() {
@@ -171,9 +171,43 @@ public class DesafioStep {
     @Then("Deletar todos os novos registros criados")
     public void deletar_todos_os_novos_registros_criados() throws InterruptedException, IOException {
         desafioPage.deletarRegistrosCriados();
-        Screenshot.takeScreenshot("Ct0013-Todos_registros_foram_deletados");
+        Screenshot.takeScreenshot("CT003-Todos_registros_foram_deletados");
     }
 
+    //#############################CT004-Widgets na página inicial#############################//
 
+    @Given("Escolher a opção Widgets na página inicial")
+    public void escolher_a_opção_widgets_na_página_inicial() throws InterruptedException {
+        desafioPage.opcaoWidgets();
 
+    }
+
+    @When("Clicar no submenu Progress Bar")
+    public void clicar_no_submenu_progress_bar() throws InterruptedException {
+        desafioPage.opcaoProgressBar();
+
+    }
+
+    @When("Clicar no botão Start")
+    public void clicar_no_botão_start() {
+        desafioPage.btnStar();
+    }
+
+    @When("Parar antes dos {int}%")
+    public void parar_antes_dos(int porc) throws InterruptedException {
+        desafioPage.pararAntes25(porc);
+    }
+
+    @Then("Validar que o valor da progress Bar é menor ou igual aos {int}%")
+    public void validar_que_o_valor_da_progress_bar_é_menor_ou_igual_aos(int porc) {
+        desafioPage.validarValorMenorOuIgualA25(porc);
+    }
+
+    @Then("Apertar Start novamente e ao chegar aos {int}%, resetar a progress bar")
+    public void apertar_start_novamente_e_ao_chegar_aos_resetar_a_progress_bar(int porc) throws InterruptedException {
+        desafioPage.apertarStartEEsperarReset(porc);
+
+    }
 }
+
+

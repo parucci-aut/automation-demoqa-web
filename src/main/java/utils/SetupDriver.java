@@ -16,7 +16,6 @@ public class SetupDriver {
                 driver.manage().window().maximize();
             }
 
-
         return driver;
      }
 
@@ -26,8 +25,6 @@ public class SetupDriver {
                 driver = null;
 
             }
-
-
      }
 
     public static void setNavegadorPrincipal(String handle) {

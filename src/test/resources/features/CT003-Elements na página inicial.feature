@@ -1,5 +1,5 @@
 Feature: Desafio Qa Automation
-@tag
+
   Scenario: CT003-Elements na página inicial
 
     Given Acessar o site "https://demoqa.com/"
